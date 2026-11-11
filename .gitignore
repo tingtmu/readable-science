@@ -1,0 +1,14 @@
+# Generated reports and local data (not for sharing)
+/*.html
+demo/
+
+# Project-level install of the skill (junction to skills/)
+.claude/
+
+# R / OS clutter
+.Rhistory
+.RData
+.Rproj.user/
+*_files/
+.DS_Store
+Thumbs.db
