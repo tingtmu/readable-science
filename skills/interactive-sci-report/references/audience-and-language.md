@@ -5,9 +5,19 @@
 Ask the audience in Step 0. Each profile changes how much is explained, not what is true:
 every audience gets the same numbers, thresholds and caveats.
 
-Jargon tips follow one rule: no tip for terms of the reader's own field, a tip for everything
-else. Each profile below says what its own field is. If you don't know whether a term is in the
-reader's field, give it a tip; if the user named terms the readers use every day, skip those.
+Jargon tips cost reading time and build time, so give them sparingly. Tip what this audience
+would otherwise stop at: project-specific terms (your own score names, custom filters, internal
+labels), non-standard methods, and terms from outside the reader's field. Each profile below says
+what its own field is. If the user named everyday terms in Step 0, skip those; if they named
+terms to explain, tip those.
+
+- **Soft budget** for PI / lab and methods peers: about 8 tips per report, 3 per section. It is a
+  guide, not a cap: go over it when the terms need it, and say so in your reply.
+- **When unsure** for PI / lab or peers, leave the tip out; the abbreviation table still has it.
+- **Once per section**: tip the first use in a section, not every use.
+- **Table headers**: tip only a header that is not self-explanatory (a custom column, an unusual
+  scale), not P, FDR or CI.
+- **Not in figures**: chart text and flowchart SVG need no tips; the caption expands abbreviations.
 
 ### PI / lab meeting
 
@@ -16,7 +26,8 @@ Readers who know the project and the methods in broad terms, and will decide wha
 - Full skeleton, all results sections, complete supplements.
 - Method cards collapsed but complete; analogies only for methods that are easily confused.
 - Formulas in every card.
-- Jargon tips on all terms except the lab's routine ones (its domain and the methods it uses often).
+- Jargon tips on project-specific and out-of-field terms only. Standard statistics (correlation
+  and rank tests, P, FDR, CI, SD, IQR, bootstrap, effect size) and the lab's routine methods get none.
 - Emphasise decisions: what is robust, what is fragile. Put suggested next analyses only in the
   Summary, labelled as proposals, never in results walkthrough boxes.
 - Keep the revision changelog visible (collapsed block at the end).
@@ -68,7 +79,8 @@ statistical symbols and widely used abbreviations (P, FDR, r, log2FC, n).
 | English | English full name (ABBR), e.g. false discovery rate (FDR) | ABBR |
 | Other | native name (English full name, ABBR), as for zh-TW | ABBR |
 
-- Every introduced term also gets a jargon tip (unless it is in the reader's own field) and a row in the abbreviation table.
+- Every introduced abbreviation gets a row in the abbreviation table. The table stands alone: a
+  row there does not need a jargon tip in the text.
 - Use one term per concept across the whole report; don't alternate synonyms.
 - Database and method names stay in their original form (KEGG, GSEA, Wilcoxon).
 

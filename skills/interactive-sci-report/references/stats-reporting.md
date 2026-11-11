@@ -20,6 +20,23 @@ For every test or model result:
 - **Pre-specified or exploratory**: label each analysis where it is introduced.
 - **Test name** in table captions or headings when more than one test is used.
 
+## CIs for common effect sizes
+
+Rule 8 needs a CI for every effect size. Pick a method, name it in the method card, and check a
+reference before citing it (rule 11); if you cannot, cite nothing and write `[reference needed]`.
+
+| Effect size | CI method (one reasonable choice) | Note |
+|---|---|---|
+| Mean difference | t-based, or Welch for unequal variances | |
+| Pearson r | Fisher z transform | |
+| Spearman ρ | Fisher z with the Bonett–Wright standard error, or bootstrap | Plain Fisher z is too narrow for ρ |
+| Median difference / location shift | Hodges–Lehmann estimate with its CI (from the Wilcoxon test), or bootstrap | |
+| Cliff's δ | Percentile or BCa bootstrap (e.g. B = 2000, seed stated) | Name size cut-offs only with a verified source |
+| Odds ratio, risk ratio | Wald on the log scale, or profile likelihood in models | |
+| Regression coefficient | Model-based (Wald), robust SE if stated | Give the scale and unit |
+
+For any bootstrap, state B, the interval type and the seed in the reproducibility appendix.
+
 ## Every number is computed
 
 - Numbers in text, tiles and tables come from the analysis output: inline code

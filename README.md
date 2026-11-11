@@ -15,7 +15,8 @@ What `interactive-sci-report` makes the agent do:
 - ask which audience the report is for, and in which language, before building anything
 - write flowchart boxes as actions ("what was done"), with input and output where useful, and
   lay out arrows so they never cross boxes, labels or each other
-- give a plain-language pop-up explanation for every term outside the reader's own field
+- give plain-language pop-up explanations for project-specific and out-of-field terms, sparingly
+  (a soft budget; standard statistics get none for PI and methods readers)
 - write formulas out, then say them again in plain words
 - make charts interactive, so pointing at a mark shows its values, with zoom and download
   controls and a values table under each
@@ -48,7 +49,8 @@ cp -r skills/interactive-sci-report .claude/skills/
 skills/
 └── interactive-sci-report/
     ├── SKILL.md              workflow, core rules, audience matrix, self-check
-    └── references/           loaded only when needed
+    ├── references/           loaded only when needed
+    └── assets/               optional: page template, CSS, JS, rendered-check script
 ```
 
 ## Contributing

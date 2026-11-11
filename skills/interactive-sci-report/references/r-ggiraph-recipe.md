@@ -84,12 +84,38 @@ as_widget(fig, w = 10, h = 4.5, png_name = "fig2_effects")
 ```r
 geom_col_interactive(aes(
   tooltip = tip, data_id = set_id,
-  onclick = sprintf("showDetail('%s')", key)   # key: letters, digits, _ only
+  onclick = "showDetailEl(this)"   # no quotes inside onclick (see Pitfalls)
 ))
+# page: <script>window.DETAILS = {"<set_id>": {panel: "cp-A", key: "<key>", title: "…"}}</script>
 ```
 
-`showDetail(key)` fills the panel from a lazy placeholder (`data-fig="detail-<key>"`); see
-`interactive-components.md`.
+`showDetailEl(el)` reads the mark's `data-id`, finds its entry in `window.DETAILS` and fills the
+panel from lazy placeholders; see `assets/report.js` and `interactive-components.md`.
+
+## Pitfalls
+
+Each of these broke a real report:
+
+| Problem | Fix |
+|---|---|
+| `onclick` containing `'` is turned into curly quotes in some pipelines: JS SyntaxError, the click does nothing | Put no quotes in `onclick`: `onclick = "showDetailEl(this)"`, and look the target up from the element's `data-id` in a `window.DETAILS` map (see `assets/report.js`) |
+| After dropping the Liberation font dependency the SVG text falls back to a serif font | Set a system font in the plot (`theme(text = element_text(family = "sans"))`) or rewrite `font-family='Liberation Sans'` in the widget HTML to a system font stack |
+| `dep$src$file` is already absolute after `copyDependencyToDir()` | Don't prepend the package path again; call `makeDependencyRelative()` next |
+| The widget div has a fixed pixel width and overflows phones | CSS override: `.girafe{width:100%!important;height:auto!important}` inside the chart box |
+| A placeholder `min-height` leaves a blank area after the chart loads on phones | Clear it on load (`ph.style.minHeight=''`), as the lazy loader in `assets/report.js` does |
+
+## Size budget
+
+A single file over ~10 MB is slow to open and hard to email, and dense charts reach it fast
+(every point is one SVG element carrying its own tooltip).
+
+- **Measure early**: build one heavy chart, check the output size, extrapolate, then decide.
+- **Dense charts** (scatter grids, many points): plain-text tooltips, no HTML; HTML tags in
+  tooltips are escaped several times over and grow quickly.
+- **Cap** the points per chart and the members per click-to-detail panel (e.g. top 4); link the
+  full list as a table or CSV.
+- **Share** one detail widget between chart elements that have the same members.
+- Over budget after this: switch to folder mode (Step 0 sharing) and tell the user.
 
 ## Quarto (single file or folder)
 

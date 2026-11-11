@@ -1,0 +1,133 @@
+<!doctype html>
+<!-- template.html — optional skeleton for an interactive-sci-report page. Copy, then replace every
+     {{…}} and the illustrative content; delete parts you don't need. Folder mode: keep the <link> and
+     <script src>. Single file: paste report.css into <style> and report.js into <script> in their place.
+     Changelog (revisions): v1  first version -->
+<html lang="{{lang, e.g. en or zh-Hant-TW}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{Report title}} {{version}}</title>
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+<div class="layout">
+<nav class="toc" id="toc" aria-label="Contents">
+  <a href="#background">1. Background</a>
+  <a href="#methods">2. Methods</a>
+  <a href="#res1">3. Result 1</a>
+  <a class="l3" href="#res1-table">Table</a>
+  <a href="#summary">4. Summary</a>
+  <a href="#appendix">Appendix</a>
+</nav>
+<main>
+<header class="top">
+  <button class="tbtn" id="themebtn" type="button">◐ auto</button>
+  <div class="eyebrow">{{Project}} · {{version}}</div>
+  <h1>{{Report title}}</h1>
+  <p class="sub">{{One-line question the report answers}}</p>
+  <div class="meta">Data: {{input, date}} · Rendered: {{date}} · Audience: {{audience}}</div>
+  <details class="mtoc"><summary>Contents</summary>
+    <a href="#background">1. Background</a><a href="#methods">2. Methods</a><a href="#res1">3. Result 1</a>
+    <a href="#summary">4. Summary</a><a href="#appendix">Appendix</a></details>
+</header>
+
+<section class="sec" id="background"><h2>1. Background</h2>
+  <ul><li>{{Why this analysis; cite only verified sources, else [reference needed]}}</li></ul>
+</section>
+
+<section class="sec" id="methods"><h2>2. Methods</h2>
+  <div class="flowtools"><button class="sm" id="fsbtn" type="button">⛶ Full screen</button></div>
+  <div class="flowwrap">
+    <svg class="flowsvg" viewBox="0 0 640 200" role="img" aria-labelledby="flowt">
+      <title id="flowt">{{One-sentence summary of the flow}}</title>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,0L10,5L0,10z" fill="currentColor"/></marker></defs>
+      <rect class="bx in" x="170" y="10" width="300" height="56" rx="8"/>
+      <text class="tt" x="185" y="32">Analysis data: {{n items × n samples}}</text>
+      <text x="185" y="52">{{Action line, verb first}}</text>
+      <path class="ln" d="M320,66V120" marker-end="url(#ah)"/>
+      <text class="lb" x="328" y="98">main input</text>
+      <rect class="bx" x="170" y="120" width="300" height="64" rx="8"/>
+      <text class="tt" x="185" y="142">Result 1: {{analysis}}</text>
+      <text x="185" y="162">{{Fitted one model per item}}</text>
+      <text x="185" y="178">{{20,000 → 8,000 after filter}}</text>
+    </svg>
+  </div>
+  <p class="tcap">Solid arrow = main input; dashed arrow = partial use.</p>
+  <h3 id="reading-guide">Reading guide</h3>
+  <ul><li>{{Columns, signs, colours (<span class="e1">Group A</span>, <span class="e2">Group B</span>), count notation}}</li></ul>
+  <details class="mcard"><summary>ⓘ About {{method}}</summary>
+    <div class="crow"><div class="lb">Problem</div><div>{{…}}</div></div>
+    <div class="crow"><div class="lb">Approach</div><div>{{…}}<pre class="formula">y = β₀ + β_X·X + β_age·age</pre>{{Plain sentence}}</div></div>
+    <div class="crow"><div class="lb">Improves</div><div>{{…}}</div></div>
+    <div class="crow"><div class="lb">Limitations</div><div>{{…}}</div></div>
+    <div class="crow"><div class="lb">Reference</div><div>[reference needed]</div></div>
+  </details>
+</section>
+
+<section class="sec" id="res1"><h2>3. Result 1 <span class="badge">pre-specified</span></h2>
+  <div class="sumbox"><div class="t">SECTION SUMMARY</div>
+    <div class="tiles">
+      <div class="tile"><div class="k">Tested</div><div class="v">{{8,000}}</div></div>
+      <div class="tile"><div class="k">FDR &lt; 0.05</div><div class="v">{{4}}</div><div class="n">{{73 at P &lt; .05; 400 expected by chance}}</div></div>
+    </div>
+    <ul><li>{{Key finding, direction in words}}</li></ul></div>
+
+  <div class="tabs">
+    <div class="tabbar" role="tablist">
+      <button role="tab" id="t1a" aria-controls="p1a" aria-selected="true">Outcome A <span class="cnt">2</span></button>
+      <button role="tab" id="t1b" aria-controls="p1b" aria-selected="false" tabindex="-1">Outcome B <span class="cnt">1</span></button>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="p1a" aria-labelledby="t1a">
+      <figure>
+        <div class="chartbox"><div data-fig="figA" style="min-height:220px"><template>
+          <svg viewBox="0 0 400 200" role="img" aria-label="Illustrative bar chart" style="width:100%;height:auto">
+            <rect x="40" y="60" width="80" height="120" fill="#007A5E" data-id="s1" onclick="showDetailEl(this)" style="cursor:pointer"><title>Set 1 · estimate 1.2 (95% CI 0.4 to 2.0) · P = 0.004</title></rect>
+            <rect x="160" y="110" width="80" height="70" fill="#A64D8A" data-id="s2" onclick="showDetailEl(this)" style="cursor:pointer"><title>Set 2 · estimate 0.6 (95% CI −0.1 to 1.3) · P = 0.09</title></rect>
+            <text x="80" y="196" text-anchor="middle" font-size="12">Set 1</text><text x="200" y="196" text-anchor="middle" font-size="12">Set 2</text>
+          </svg></template></div></div>
+        <figcaption>Bar height = estimate; colour = set (also labelled). Hover a bar for its values; click it for its members.</figcaption>
+        <details class="vtable"><summary>Values table</summary><div class="tblwrap"><table class="sortable">
+          <thead><tr><th aria-sort="none"><button type="button">Set</button></th><th class="num" aria-sort="none"><button type="button">Estimate</button></th><th class="num" aria-sort="none"><button type="button">P</button></th></tr></thead>
+          <tbody><tr><td>Set 1</td><td class="num">1.2</td><td class="num">0.004</td></tr><tr><td>Set 2</td><td class="num">0.6</td><td class="num">0.09</td></tr></tbody>
+        </table></div></details>
+      </figure>
+      <div class="cpanel" id="cp-A"><div class="cp-head">Members</div>
+        <p class="cp-empty">Click a bar above to see its members here.</p>
+        <div class="cp-item" data-key="s1" hidden>{{Set 1 member plots (lazy placeholders)}}</div>
+        <div class="cp-item" data-key="s2" hidden>{{Set 2 member plots}}</div></div>
+    </div>
+    <div class="tabpanel" role="tabpanel" id="p1b" aria-labelledby="t1b" hidden><p>{{Outcome B}}</p></div>
+  </div>
+
+  <h3 id="res1-table">Table</h3>
+  <input class="tsearch" data-t="tbl1" type="search" aria-label="Search table" placeholder="Search…">
+  <div class="tblwrap"><table id="tbl1" class="sortable">
+    <thead><tr><th aria-sort="none"><button type="button">Item</button></th>
+      <th class="num" aria-sort="none"><button type="button">Score A</button>
+        <span class="gl" tabindex="0" data-tip="{{Plain explanation of a project-specific column}}">ⓘ</span></th>
+      <th class="num" aria-sort="none"><button type="button">FDR</button></th></tr></thead>
+    <tbody><tr><td>ID-001</td><td class="num">0.52</td><td class="num">0.012</td></tr>
+      <tr><td>ID-002</td><td class="num">−0.31</td><td class="num">NA</td></tr>
+      <tr><td>ID-003</td><td class="num">0.08</td><td class="num">0.38</td></tr></tbody>
+  </table></div>
+  <p class="tcap">Shown: {{rule for which items are shown}}. <a href="#appendix">Full list</a>.</p>
+  <div class="walk"><div class="t">RESULTS WALKTHROUGH</div><p>{{What it shows · what it does not show}}</p></div>
+</section>
+
+<section class="sec" id="summary"><h2>4. Summary</h2><ul><li>{{…}}</li></ul></section>
+
+<section class="sec" id="appendix"><h2>Appendix</h2>
+  <details class="sup"><summary>Abbreviations</summary><div class="tblwrap"><table>
+    <thead><tr><th>Abbreviation</th><th>Full name</th><th>Plain explanation</th></tr></thead>
+    <tbody><tr><td>FDR</td><td>false discovery rate</td><td>{{…}}</td></tr></tbody></table></div></details>
+  <details class="sup"><summary>References</summary><ul><li>{{Claim: citation, DOI}}</li></ul></details>
+  <details class="sup"><summary>Reproducibility</summary><ul><li>{{Software versions, seeds, inputs, commit, render date}}</li></ul></details>
+</section>
+</main>
+</div>
+<script>window.DETAILS={s1:{panel:'cp-A',key:'s1',title:'Set 1 members'},s2:{panel:'cp-A',key:'s2',title:'Set 2 members'}};</script>
+<script src="report.js"></script>
+</body>
+</html>

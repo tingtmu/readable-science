@@ -53,8 +53,16 @@ A flowchart box whose text says what was done at that step, optionally with its 
 _Avoid_: node, step box
 
 **Jargon tip**:
-A plain-language explanation that appears when the reader points at, focuses or taps a technical term.
+A plain-language explanation that appears when the reader points at, focuses or taps a term the audience may not know.
 _Avoid_: tooltip (that word is kept for chart value pop-ups), popover
+
+**Tip budget**:
+The soft limit on jargon tips for PI / lab and methods-peer reports (about 8 per report, 3 per section), which may be exceeded with a stated reason.
+_Avoid_: tip cap, quota
+
+**Standard statistic**:
+A statistical term or method that PI / lab and methods-peer readers use routinely (e.g. P, FDR, CI, rank tests), and which therefore gets no jargon tip for them.
+_Avoid_: basic term, common jargon
 
 **Chart controls**:
 The zoom, reset and download-image buttons in the bottom-right corner of every chart.
@@ -71,6 +79,10 @@ _Avoid_: hover label, jargon tip
 **Encoding legend**:
 The statement of what each visual channel (colour, size, shape, border, fill) means in a figure or table.
 _Avoid_: key
+
+**Report assets**:
+The optional page template, stylesheet, script and rendered-check script shipped in the skill's `assets/` folder; a report may use them or not.
+_Avoid_: kit, framework, required files
 
 ## Statistical reporting
 
@@ -93,6 +105,10 @@ _Avoid_: funnel, flow numbers
 **Reproducibility appendix**:
 The closing block listing software versions, seeds, input files and code version behind a report.
 _Avoid_: session info, methods details
+
+**Citation verdict**:
+The outcome of checking one cited claim against its source: supports, partly, does not, exists but text not read, or could not access.
+_Avoid_: citation status, check result
 
 **Caveat**:
 An explicit statement of what a result cannot show, written next to the result it limits.

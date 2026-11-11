@@ -4,6 +4,11 @@ Required behaviours first, then minimal plain HTML/CSS/JS that implements them. 
 need no libraries and run from `file://`. Put the CSS in one `<style>` (or `assets/report.css`)
 and the JS in one `<script>` at the end of the body (or `assets/report.js`).
 
+**Ready-made versions (optional).** The skill's `assets/` folder holds the assembled form of every
+snippet below: `template.html` (page skeleton with all components), `report.css`, `report.js`
+and `check_report.mjs` (rendered check). Copying them saves rebuilding the page each run; edit
+freely, or write your own. If you change a snippet here, keep the asset in step.
+
 **Don't mix component systems.** In Quarto, either use its built-ins (`panel-tabset`, callouts,
 its contents sidebar, which already handle deep links) or these snippets, not both in one report.
 
@@ -14,7 +19,7 @@ its contents sidebar, which already handle deep links) or these snippets, not bo
 | Jargon tip | Show on mouse hover, keyboard focus and tap; dismiss with Esc, tap elsewhere or scroll; float above table scroll areas; `role="tooltip"` |
 | Value tooltip | Every chart mark shows its exact values (label, estimate, CI, P, FDR, n) on hover |
 | Chart controls | Zoom (buttons, or a pan / zoom toggle with the mouse wheel), reset and download image, in the chart's bottom-right corner, covering no mark or label |
-| Values table | Every chart has a collapsible table of the numbers it shows |
+| Values table | Every chart has a collapsible table of the numbers it shows (per-panel statistics always; point-level rows when the marks carry the information) |
 | Tables | Sticky header; numbers right-aligned, tabular digits; long tables sortable (keyboard-operable) and searchable; blanks / NA sort last |
 | Tabs | For parallel comparisons; counts on tab buttons; ARIA tabs with arrow-key navigation |
 | Contents | Sticky sidebar with the current section highlighted; collapsible on narrow screens |
@@ -74,7 +79,13 @@ thead th{position:sticky;top:0;background:var(--surface2)}
 figcaption,.tcap{font-size:11px;color:var(--muted);text-align:left}
 details.mcard{background:var(--accent-soft);border:1px solid var(--border);border-radius:10px}
 .crow{display:grid;grid-template-columns:120px minmax(0,1fr);gap:4px 14px}
-@media (max-width:620px){.crow{grid-template-columns:1fr}}
+@media (max-width:620px){.crow{grid-template-columns:minmax(0,1fr)}}
+/* phone width: never plain 1fr (a <pre> or wide table then widens the whole page) */
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr)}main{min-width:0}
+@media (max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}}
+/* charts keep readable text on phones and pan inside their box instead of shrinking */
+.chartbox{overflow-x:auto}
+@media (max-width:700px){.chartbox>[data-fig]>*{min-width:640px}}
 ```
 
 - System fonts only; no web fonts.
@@ -84,7 +95,9 @@ details.mcard{background:var(--accent-soft);border:1px solid var(--border);borde
 
 ## Jargon tip
 
-Markup: `<span class="gl" tabindex="0" data-tip="Plain explanation.">FDR</span>`
+Markup: `<span class="gl" tabindex="0" data-tip="Plain explanation.">Score A</span>`. Which
+terms get one, and the soft budget: `audience-and-language.md`. The cost is the wording, not the
+code; keep each tip to one or two plain sentences.
 
 ```css
 .gl{border-bottom:1px dotted var(--accent);cursor:help}
@@ -113,7 +126,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')hideTip();})
 document.addEventListener('scroll',hideTip,{capture:true,passive:true});  // also inner scroll areas
 ```
 
-In table headers, put the jargon tip next to the sort button (an `ⓘ` span), not inside it.
+In table headers, put a jargon tip (only for a header that is not self-explanatory) next to the
+sort button as an `ⓘ` span, not inside it.
 
 ## Sortable and searchable tables
 
@@ -121,7 +135,7 @@ In table headers, put the jargon tip next to the sort button (an `ⓘ` span), no
 <input class="tsearch" data-t="tbl1" type="search" aria-label="Search table" placeholder="Search…">
 <div class="tblwrap"><table id="tbl1" class="sortable">
   <thead><tr><th aria-sort="none"><button type="button">Gene</button></th>
-             <th class="num" aria-sort="none"><button type="button">P</button>
+             <th class="num" aria-sort="none"><button type="button">Score A</button>
                <span class="gl" tabindex="0" data-tip="…">ⓘ</span></th></tr></thead>
   …</table></div>
 ```
@@ -162,6 +176,13 @@ document.querySelectorAll('input.tsearch').forEach(function(inp){inp.addEventLis
   <details class="vtable"><summary>Values table</summary><div class="tblwrap"><table class="sortable">…</table></div></details>
 </figure>
 ```
+
+What goes in the table:
+
+- **Always** the statistics the chart shows per panel (estimate, CI, P, FDR, n).
+- **Also point-level rows** when the marks themselves carry the information (a scatter of named
+  items, a volcano plot): nest them as a second collapsed table. Skip them when the points are
+  only a cloud behind a summary (e.g. raw values behind a box plot).
 
 ## Tabs
 
@@ -266,7 +287,8 @@ document.querySelectorAll('[data-fig]').forEach(function(ph){io.observe(ph);});
 document.addEventListener('toggle',function(e){if(e.target.open)renderLazy(e.target);},true);
 ```
 
-Give placeholders a `min-height` close to the chart height so the page doesn't jump. A hidden
+Give placeholders a `min-height` close to the chart height so the page doesn't jump, and clear
+it once the chart is in (`ph.style.minHeight=''`), or phones keep a large blank area. A hidden
 placeholder is skipped and loaded later by `showTab` / `toggle`.
 
 ## Click-to-detail panel
